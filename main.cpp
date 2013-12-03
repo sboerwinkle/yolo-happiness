@@ -1,9 +1,14 @@
 #include <iostream>
 #include <SDL/SDL.h>
+#include "pieces.hpp"
 
 using namespace std;
 
 int main(int argc, char** argv){
+	Piece p;
+	p = Piece(QUEEN);
+	if(p.type == QUEEN) cout << "it's alive!!!\n";
+
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Surface* screen = SDL_SetVideoMode(500, 500, 32, SDL_SWSURFACE);
 	SDL_Surface* oldImg = SDL_LoadBMP("img.bmp");

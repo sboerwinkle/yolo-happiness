@@ -1,10 +1,14 @@
 CC = g++
-CFLAGS = -O2 -Wall -g
+CFLAGS = -O0 -g -Wall 
 LFLAGS = -lSDL
 
 .PHONY: clean
-run: main.cpp
-	$(CC) $(CFLAGS) $(LFLAGS) -o run main.cpp
 
+game: main.o 
+	$(CC) $(CFLAGS) $(LFLAGS) main.o -o game
+
+main.o: main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
+	
 clean:
-	rm -f run
+	rm -rf ./*.o game
