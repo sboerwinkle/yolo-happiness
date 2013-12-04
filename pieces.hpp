@@ -8,7 +8,7 @@ enum piece_t{
 	QUEEN
 };
 
-enum piece_colour{
+enum piece_c{
 	BLACK,
 	WHITE
 };
@@ -25,24 +25,23 @@ class Piece{
 
 	public:
 		piece_t type;
-		piece_colour colour;
+		piece_c colour;
 		pt pos;
 		
-		Piece newPiece(	int x, 
-				int y, 
-				piece_t type, 
-				piece_colour newColour);
-
 		piece_t getType();
-		piece_colour getColour();
+		piece_c getColour();
 		void move(int x, int y);	
 };
+
+extern Piece newPiece(int x, int y, piece_t newType, piece_c newColour);
+
+
 
 class Pawn: public Piece{
 	public:
 		Pawn(	int x=0, 
 			int y=0, 
-			piece_colour c = BLACK){
+			piece_c c = BLACK){
 
 			pos.x = x;
 			pos.y = y;
@@ -55,8 +54,8 @@ class Rook: public Piece{
 	public:
 		Rook(	int x=0, 
 			int y=0, 
-			piece_colour c = BLACK){
-			
+			piece_c c = BLACK){
+
 			pos.x = x;
 			pos.y = y;
 			colour = c;	
@@ -64,16 +63,18 @@ class Rook: public Piece{
 
 };
 
+
 class Knight: public Piece{
 	public:
 		Knight(	int x=0, 
 			int y=0, 
-			piece_colour c = BLACK){
+			piece_c c = BLACK){
 		
 			pos.x = x;
 			pos.y = y;
 			colour = c;	
 		}
+		int checkMove(int x, int y, piece_c c);
 
 	
 };
@@ -82,7 +83,7 @@ class Bishop: public Piece{
 	public:
 		Bishop(	int x=0, 
 			int y=0, 
-			piece_colour c = BLACK){
+			piece_c c = BLACK){
 		
 			pos.x = x;
 			pos.y = y;
@@ -95,7 +96,7 @@ class King: public Piece{
 	public:
 		King(	int x=0, 
 			int y=0, 
-			piece_colour c = BLACK){
+			piece_c c = BLACK){
 		
 			pos.x = x;
 			pos.y = y;
@@ -108,7 +109,7 @@ class Queen: public Piece{
 	public:
 		Queen(	int x=0, 
 			int y=0, 
-			piece_colour c = BLACK){
+			piece_c c = BLACK){
 		
 			pos.x = x;
 			pos.y = y;
@@ -116,49 +117,4 @@ class Queen: public Piece{
 		}
 
 };
-
-
-Piece Piece::newPiece(	int x, 
-			int y,	
-			piece_t newType=PAWN,
-	       		piece_colour newColour=BLACK){
-	
-	switch (newType){
-		case PAWN:
-			return Pawn( x, y, newColour);
-			break;
-		case ROOK:
-			return Rook( x, y, newColour);
-			break;
-		case KNIGHT:
-			return Knight( x, y, newColour);
-			break;
-		case BISHOP:
-			return Bishop( x, y, newColour);
-			break;
-		case KING:
-			return King( x, y, newColour);
-			break;
-		case QUEEN:
-			return Queen( x, y, newColour);
-			break;
-		default:
-			return Pawn( x, y, newColour);
-			break;
-
-	}
-
-}
-
-piece_t Piece::getType(){
-	return type;
-}
-
-piece_colour Piece::getColour(){
-	return colour;
-}
-void Piece::move(int x, int y){
-	pos.x = x;
-	pos.y = y;
-}
 

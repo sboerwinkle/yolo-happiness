@@ -1,8 +1,12 @@
 #include <iostream>
 #include <SDL/SDL.h>
 #include "pieces.hpp"
+#include "board.hpp"
+
 
 using namespace std;
+
+Board Brd = Board();
 
 int main(int argc, char** argv){
 
