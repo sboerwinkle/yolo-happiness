@@ -8,21 +8,82 @@ enum piece_t{
 	QUEEN
 };
 
-
-
+enum piece_colour{
+	BLACK,
+	WHITE
+};
 
 
 class Piece{
 
 	public:
 		piece_t type;
-		Piece(piece_t type);	
-		void SetType(piece_t newType);
+		piece_colour colour;
+
+		Piece newPiece(piece_t type);	
+		piece_t getType();
+		piece_colour getColour();
 };
 
-Piece::Piece(piece_t newType=PAWN){
+class Pawn: public Piece{
+
+};
+
+class Rook: public Piece{
+
+};
+
+class Knight: public Piece{
+
+};
+
+class Bishop: public Piece{
+
+};
+
+class King: public Piece{
+
+};
+
+class Queen: public Piece{
+
+};
+
+
+Piece Piece::newPiece(	piece_t newType=PAWN,
+	       		piece_colour newColour=BLACK){
 	
-	type=newType;
+	switch (newType){
+		case PAWN:
+			return Pawn();
+			break;
+		case ROOK:
+			return Rook();
+			break;
+		case KNIGHT:
+			return Knight();
+			break;
+		case BISHOP:
+			return Bishop();
+			break;
+		case KING:
+			return King();
+			break;
+		case QUEEN:
+			return Queen();
+			break;
+		default:
+			return Pawn();
+			break;
+
+	}
 
 }
 
+piece_t Piece::getType(){
+	return type;
+}
+
+piece_colour Piece::getColour(){
+	return colour;
+}
