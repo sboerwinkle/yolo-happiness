@@ -9,7 +9,7 @@ Piece * Board::getPiece(int x, int y){
 
 int Board::enemy(int x, int y, piece_c c){
 	
-	if(this->getPiece(x,y)== NULL){
+	if(this->getPiece(x,y)->getType() == BLANK){
 		return 0;
 	}else if(this->getPiece(x,y)->colour != c){
 		return 1;
@@ -45,9 +45,6 @@ Board::Board(){
 	array[5][7] = Bishop(0, 0, WHITE);
 	array[6][7] = Knight(0, 0, WHITE);
 	array[7][7] = Rook(0, 0, WHITE);
-	//zero unfilled spaces fill sides.
-
-
 }
 
 void Board::move(int x1, int y1, int x2, int y2){
