@@ -7,6 +7,11 @@ using namespace std;
 
 extern Board Brd;
 
+SDL_Surface* pawnImg;
+SDL_Surface* rookImg;
+SDL_Surface* kingImg;
+SDL_Surface* bishopImg;
+
 Piece newPiece(		int x, 
 			int y,	
 			piece_t newType=PAWN,
@@ -51,6 +56,9 @@ void Piece::move(int x, int y){
 	pos.y = y;
 }
 
+void Piece::draw(SDL_Surface* screen, SDL_Rect* dest){
+	if(myImg) SDL_BlitSurface(myImg, NULL, screen, dest);
+}
 	
 int Knight::checkMove(int x, int y, piece_c c){
 	if(abs(dist(abs(pos.x-x),abs(pos.y-y))-sqrt(5)) < 0.001

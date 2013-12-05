@@ -1,5 +1,7 @@
+#include <SDL/SDL.h>
 
 enum piece_t{
+	BLANK,
 	PAWN,
 	ROOK,
 	KNIGHT,
@@ -20,6 +22,10 @@ struct pt{
 
 };
 
+extern SDL_Surface* pawnImg;
+extern SDL_Surface* rookImg;
+extern SDL_Surface* kingImg;
+extern SDL_Surface* bishopImg;
 
 class Piece{
 
@@ -27,7 +33,9 @@ class Piece{
 		piece_t type;
 		piece_c colour;
 		pt pos;
+		SDL_Surface* myImg;
 		
+		void draw(SDL_Surface* screen, SDL_Rect* dest);
 		piece_t getType();
 		piece_c getColour();
 		void move(int x, int y);	
@@ -45,7 +53,9 @@ class Pawn: public Piece{
 
 			pos.x = x;
 			pos.y = y;
-			colour = c;	
+			colour = c;
+			myImg = pawnImg;
+			type = PAWN;
 		}
 		
 };
@@ -58,7 +68,9 @@ class Rook: public Piece{
 
 			pos.x = x;
 			pos.y = y;
-			colour = c;	
+			colour = c;
+			myImg = rookImg;
+			type = ROOK;
 		}
 
 };
@@ -72,7 +84,9 @@ class Knight: public Piece{
 		
 			pos.x = x;
 			pos.y = y;
-			colour = c;	
+			colour = c;
+			myImg = NULL;
+			type = KNIGHT;
 		}
 		int checkMove(int x, int y, piece_c c);
 
@@ -87,7 +101,9 @@ class Bishop: public Piece{
 		
 			pos.x = x;
 			pos.y = y;
-			colour = c;	
+			colour = c;
+			myImg = bishopImg;
+			type = BISHOP;
 		}
 	
 };
@@ -100,7 +116,9 @@ class King: public Piece{
 		
 			pos.x = x;
 			pos.y = y;
-			colour = c;	
+			colour = c;
+			myImg = kingImg;
+			type = KING;
 		}
 
 };
@@ -110,10 +128,12 @@ class Queen: public Piece{
 		Queen(	int x=0, 
 			int y=0, 
 			piece_c c = BLACK){
-		
+
 			pos.x = x;
 			pos.y = y;
-			colour = c;	
+			colour = c;
+			myImg = NULL;
+			type = QUEEN;
 		}
 
 };

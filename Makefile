@@ -7,14 +7,14 @@ LFLAGS = -lSDL -lm
 game: main.o math.o board.o pieces.o
 	$(CC) $(CFLAGS) $(LFLAGS) board.o pieces.o math.o main.o -o game
 
-main.o: main.cpp
+main.o: main.cpp board.hpp pieces.hpp
 	$(CC) $(CFLAGS) -c main.cpp
 
 math.o: math.cpp
 	$(CC) $(CFLAGS) -c math.cpp
-board.o: board.cpp
+board.o: board.cpp board.hpp pieces.hpp
 	$(CC) $(CFLAGS) -c board.cpp
-pieces.o: pieces.cpp
+pieces.o: pieces.cpp pieces.hpp board.hpp
 	$(CC) $(CFLAGS) -c pieces.cpp
 clean:
 	rm -rf ./*.o game
