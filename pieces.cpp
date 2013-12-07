@@ -15,29 +15,29 @@ SDL_Surface* bishopImg;
 Piece newPiece(		int x, 
 			int y,	
 			piece_t newType=PAWN,
-	       		piece_c newColour=BLACK){
+	       		piece_c newColor=BLACK){
 	
 	switch (newType){
 		case PAWN:
-			return Pawn( x, y, newColour);
+			return Pawn( x, y, newColor);
 			break;
 		case ROOK:
-			return Rook( x, y, newColour);
+			return Rook( x, y, newColor);
 			break;
 		case KNIGHT:
-			return Knight( x, y, newColour);
+			return Knight( x, y, newColor);
 			break;
 		case BISHOP:
-			return Bishop( x, y, newColour);
+			return Bishop( x, y, newColor);
 			break;
 		case KING:
-			return King( x, y, newColour);
+			return King( x, y, newColor);
 			break;
 		case QUEEN:
-			return Queen( x, y, newColour);
+			return Queen( x, y, newColor);
 			break;
 		default:
-			return Pawn( x, y, newColour);
+			return Pawn( x, y, newColor);
 			break;
 
 	}
@@ -48,7 +48,7 @@ piece_t Piece::getType(){
 	return type;
 }
 
-piece_c Piece::getColour(){
+piece_c Piece::getColor(){
 	return colour;
 }
 void Piece::move(int x, int y){

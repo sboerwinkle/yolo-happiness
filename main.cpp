@@ -7,6 +7,9 @@ using namespace std;
 
 Board Brd;
 
+int phase = 0; //White choose piece, white move, black choose piece, black move.
+int selectedX, selectedY;
+
 SDL_Surface* loadImg(char* name){
 	SDL_Surface* old = SDL_LoadBMP(name);
 	SDL_Surface* ret =  SDL_DisplayFormat(old);
@@ -39,7 +42,20 @@ int main(int argc, char** argv){
 			SDL_Quit();
 			return 0;
 		}
-		if(e.type == SDL_KEYDOWN){
+		if(e.type == SDL_MOUSEBUTTONDOWN){
+			int x = (e.button.x-40)/40;
+			int y = (e.button.y-40)/40;
+			if(phase%2){
+				if(Brd.getPiece(x,y)->getType() != BLANK && (Brd.getPiece(x,y)->getColor() == WHITE) == (phase == 1)) continue; //Moving into a friendly unit's space
+				Brd.move(selectedX, selectedY, x, y);
+				phase++;
+				if(phase == 4) phase = 0;
+			}else{
+				if(Brd.getPiece(x,y)->getType() == BLANK || (Brd.getPiece(x,y)->getColor() == WHITE) != (phase == 0)) continue; //Empty space or Wrong color
+				selectedX = x;
+				selectedY = y;
+				phase++;
+			}
 		}
 
 		SDL_FillRect(screen, &wholeScreen, 0xFF000000);
@@ -51,6 +67,23 @@ int main(int argc, char** argv){
 				dest.y = 40*j + 40;
 				Brd.getPiece(i, j)->draw(screen, &dest);
 			}
+		}
+		if(phase % 2){ //If it's a movement phase
+			dest.x = 40*(selectedX+1);
+			dest.y = 40*(selectedY+1);
+			dest.w = 40;
+			dest.h = 2;
+			SDL_FillRect(screen, &dest, 0xFF0000FF);
+			dest.w = 2;
+			dest.h = 40;
+			SDL_FillRect(screen, &dest, 0xFF0000FF);
+			dest.x += 38;
+			SDL_FillRect(screen, &dest, 0xFF0000FF);
+			dest.x -= 38;
+			dest.y += 38;
+			dest.w = 40;
+			dest.h = 2;
+			SDL_FillRect(screen, &dest, 0xFF0000FF);
 		}
 		SDL_Flip(screen);
 	}
