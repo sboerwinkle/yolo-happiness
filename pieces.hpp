@@ -37,11 +37,11 @@ class Piece{
 		
 		void draw(SDL_Surface* screen, SDL_Rect* dest);
 		piece_t getType();
-		piece_c getColor();
+		piece_c getColour();
 		void move(int x, int y);	
 };
 
-extern Piece newPiece(int x, int y, piece_t newType, piece_c newColor);
+extern Piece newPiece(int x, int y, piece_t newType, piece_c newColour);
 
 
 

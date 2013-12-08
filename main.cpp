@@ -46,12 +46,12 @@ int main(int argc, char** argv){
 			int x = (e.button.x-40)/40;
 			int y = (e.button.y-40)/40;
 			if(phase%2){
-				if(Brd.getPiece(x,y)->getType() != BLANK && (Brd.getPiece(x,y)->getColor() == WHITE) == (phase == 1)) continue; //Moving into a friendly unit's space
+				if(Brd.getPiece(x,y)->getType() != BLANK && (Brd.getPiece(x,y)->getColour() == WHITE) == (phase == 1)) continue; //Moving into a friendly unit's space
 				Brd.move(selectedX, selectedY, x, y);
 				phase++;
 				if(phase == 4) phase = 0;
 			}else{
-				if(Brd.getPiece(x,y)->getType() == BLANK || (Brd.getPiece(x,y)->getColor() == WHITE) != (phase == 0)) continue; //Empty space or Wrong color
+				if(Brd.getPiece(x,y)->getType() == BLANK || (Brd.getPiece(x,y)->getColour() == WHITE) != (phase == 0)) continue; //Empty space or Wrong color
 				selectedX = x;
 				selectedY = y;
 				phase++;
