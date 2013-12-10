@@ -62,11 +62,16 @@ int main(int argc, char** argv){
 
 		SDL_FillRect(screen, &wholeScreen, 0xFF000000);
 		int j, i = 0;
+		dest.w = dest.h = 40;
 		for(; i < 8; i++){
 			dest.x = 40*i + 40;
+			dest.y = 0;
 			for(j = 0; j < 8; j++){
-				if(Brd.getPiece(i, j)->getType() == BLANK) continue;
-				dest.y = 40*j + 40;
+				dest.y += 40;
+				if(Brd.getPiece(i, j)->getType() == BLANK){
+					SDL_FillRect(screen, &dest, (i+j)%2?0xFF303030:0xFFCFCFCF);
+					continue;
+				}
 				Brd.getPiece(i, j)->draw(screen, &dest);
 			}
 		}
