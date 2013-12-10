@@ -11,6 +11,8 @@ SDL_Surface* pawnImg;
 SDL_Surface* rookImg;
 SDL_Surface* kingImg;
 SDL_Surface* bishopImg;
+SDL_Surface* knightImg;
+SDL_Surface* queenImg;
 
 Piece newPiece(		int x, 
 			int y,	

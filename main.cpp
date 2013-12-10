@@ -10,7 +10,7 @@ Board Brd;
 int phase = 0; //White choose piece, white move, black choose piece, black move.
 int selectedX, selectedY;
 
-SDL_Surface* loadImg(char* name){
+SDL_Surface* loadImg(const char* name){
 	SDL_Surface* old = SDL_LoadBMP(name);
 	SDL_Surface* ret =  SDL_DisplayFormat(old);
 	SDL_FreeSurface(old);
@@ -25,6 +25,8 @@ int main(int argc, char** argv){
 	bishopImg = loadImg("bishop.bmp");
 	kingImg = loadImg("king.bmp");
 	rookImg = loadImg("rook.bmp");
+	queenImg = loadImg("queen.bmp");
+	knightImg = loadImg("knight.bmp");
 	Brd = Board(); // Delay until after the image pointers are established
 	SDL_Event e;
 	SDL_Rect dest;

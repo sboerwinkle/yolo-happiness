@@ -26,6 +26,8 @@ extern SDL_Surface* pawnImg;
 extern SDL_Surface* rookImg;
 extern SDL_Surface* kingImg;
 extern SDL_Surface* bishopImg;
+extern SDL_Surface* knightImg;
+extern SDL_Surface* queenImg;
 
 class Piece{
 
@@ -85,7 +87,7 @@ class Knight: public Piece{
 			pos.x = x;
 			pos.y = y;
 			colour = c;
-			myImg = NULL;
+			myImg = knightImg;
 			type = KNIGHT;
 		}
 		int checkMove(int x, int y, piece_c c);
@@ -132,7 +134,7 @@ class Queen: public Piece{
 			pos.x = x;
 			pos.y = y;
 			colour = c;
-			myImg = NULL;
+			myImg = queenImg;
 			type = QUEEN;
 		}
 
