@@ -45,8 +45,8 @@ int main(int argc, char** argv){
 			return 0;
 		}
 		if(e.type == SDL_MOUSEBUTTONDOWN){
-			int x = (e.button.x-40)/40;
-			int y = (e.button.y-40)/40;
+			int x = (e.button.x-90)/40;
+			int y = (e.button.y-90)/40;
 			if(phase%2){
 				if(Brd.getPiece(x,y)->getType() != BLANK && (Brd.getPiece(x,y)->getColour() == WHITE) == (phase == 1)) continue; //Moving into a friendly unit's space
 				Brd.move(selectedX, selectedY, x, y);
@@ -63,9 +63,10 @@ int main(int argc, char** argv){
 		SDL_FillRect(screen, &wholeScreen, 0xFF000000);
 		int j, i = 0;
 		dest.w = dest.h = 40;
+		dest.x = 50;
 		for(; i < 8; i++){
-			dest.x = 40*i + 40;
-			dest.y = 0;
+			dest.x += 40;
+			dest.y = 50;
 			for(j = 0; j < 8; j++){
 				dest.y += 40;
 				if(Brd.getPiece(i, j)->getType() == BLANK){
@@ -76,8 +77,8 @@ int main(int argc, char** argv){
 			}
 		}
 		if(phase % 2){ //If it's a movement phase
-			dest.x = 40*(selectedX+1);
-			dest.y = 40*(selectedY+1);
+			dest.x = 40*selectedX+90;
+			dest.y = 40*selectedY+90;
 			dest.w = 40;
 			dest.h = 2;
 			SDL_FillRect(screen, &dest, 0xFF0000FF);
