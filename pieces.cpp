@@ -7,12 +7,12 @@ using namespace std;
 
 extern Board Brd;
 
-SDL_Surface* pawnImg;
-SDL_Surface* rookImg;
-SDL_Surface* kingImg;
-SDL_Surface* bishopImg;
-SDL_Surface* knightImg;
-SDL_Surface* queenImg;
+SDL_Surface* pawnImg[2];
+SDL_Surface* rookImg[2];
+SDL_Surface* kingImg[2];
+SDL_Surface* bishopImg[2];
+SDL_Surface* knightImg[2];
+SDL_Surface* queenImg[2];
 
 Piece newPiece(		int x, 
 			int y,	
@@ -59,7 +59,7 @@ void Piece::move(int x, int y){
 }
 
 void Piece::draw(SDL_Surface* screen, SDL_Rect* dest){
-	if(myImg) SDL_BlitSurface(myImg, NULL, screen, dest);
+	if(myImg) SDL_BlitSurface(myImg[colour], NULL, screen, dest);
 }
 	
 int Knight::checkMove(int x, int y, piece_c c){

@@ -22,12 +22,12 @@ struct pt{
 
 };
 
-extern SDL_Surface* pawnImg;
-extern SDL_Surface* rookImg;
-extern SDL_Surface* kingImg;
-extern SDL_Surface* bishopImg;
-extern SDL_Surface* knightImg;
-extern SDL_Surface* queenImg;
+extern SDL_Surface* pawnImg[2];
+extern SDL_Surface* rookImg[2];
+extern SDL_Surface* kingImg[2];
+extern SDL_Surface* bishopImg[2];
+extern SDL_Surface* knightImg[2];
+extern SDL_Surface* queenImg[2];
 
 class Piece{
 
@@ -35,7 +35,7 @@ class Piece{
 		piece_t type;
 		piece_c colour;
 		pt pos;
-		SDL_Surface* myImg;
+		SDL_Surface** myImg;
 		
 		void draw(SDL_Surface* screen, SDL_Rect* dest);
 		piece_t getType();

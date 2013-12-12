@@ -10,23 +10,43 @@ Board Brd;
 int phase = 0; //White choose piece, white move, black choose piece, black move.
 int selectedX, selectedY;
 
-SDL_Surface* loadImg(const char* name){
+void loadImg(SDL_Surface** dest, const char* name){
 	SDL_Surface* old = SDL_LoadBMP(name);
-	SDL_Surface* ret =  SDL_DisplayFormat(old);
+	SDL_Surface* tmp = SDL_DisplayFormat(old); //Possibly display format the actual pictures?
+	dest[0] = SDL_CreateRGBSurface(0, 40, 40, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
 	SDL_FreeSurface(old);
-	return ret;
+	dest[1] = SDL_CreateRGBSurface(0, 40, 40, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
+	SDL_Rect r;
+	r.w = r.h = 1;
+	Uint32 color;
+	int j, i = 0;
+	for(; i < 40; i++){
+		r.x = i;
+		for(j = 0; j < 40; j++){
+			r.y = j;
+			color = ((Uint8*)tmp->pixels)\
+				[j*(tmp->pitch)+\
+				i*(tmp->format->BytesPerPixel)]\
+				?0:0xFF000000;
+			SDL_FillRect(dest[BLACK], &r, color);
+			SDL_FillRect(dest[WHITE], &r, color+0xFFFFFF);
+		}
+	}
+	SDL_FreeSurface(tmp);
+	SDL_SetAlpha(dest[0], SDL_SRCALPHA, 255);
+	SDL_SetAlpha(dest[1], SDL_SRCALPHA, 255);
 }
 
 int main(int argc, char** argv){
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Surface* screen = SDL_SetVideoMode(500, 500, 32, SDL_SWSURFACE);
-	pawnImg = loadImg("pawn.bmp");
-	bishopImg = loadImg("bishop.bmp");
-	kingImg = loadImg("king.bmp");
-	rookImg = loadImg("rook.bmp");
-	queenImg = loadImg("queen.bmp");
-	knightImg = loadImg("knight.bmp");
+	loadImg(pawnImg, "pawn.bmp");
+	loadImg(bishopImg, "bishop.bmp");
+	loadImg(kingImg, "king.bmp");
+	loadImg(rookImg, "rook.bmp");
+	loadImg(queenImg, "queen.bmp");
+	loadImg(knightImg, "knight.bmp");
 	Brd = Board(); // Delay until after the image pointers are established
 	SDL_Event e;
 	SDL_Rect dest;
@@ -37,10 +57,15 @@ int main(int argc, char** argv){
 	while(true){
 		SDL_WaitEvent(&e);
 		if(e.type == SDL_QUIT){
-			SDL_FreeSurface(pawnImg);
-			SDL_FreeSurface(rookImg);
-			SDL_FreeSurface(kingImg);
-			SDL_FreeSurface(bishopImg);
+			int i = 0;
+			for(; i < 2; i++){
+				SDL_FreeSurface(pawnImg[i]);
+				SDL_FreeSurface(rookImg[i]);
+				SDL_FreeSurface(kingImg[i]);
+				SDL_FreeSurface(bishopImg[i]);
+				SDL_FreeSurface(queenImg[i]);
+				SDL_FreeSurface(knightImg[i]);
+			}
 			SDL_Quit();
 			return 0;
 		}
@@ -69,8 +94,8 @@ int main(int argc, char** argv){
 			dest.y = 50;
 			for(j = 0; j < 8; j++){
 				dest.y += 40;
+				SDL_FillRect(screen, &dest, (i+j)%2?0xFF303030:0xFFCFCFCF);
 				if(Brd.getPiece(i, j)->getType() == BLANK){
-					SDL_FillRect(screen, &dest, (i+j)%2?0xFF303030:0xFFCFCFCF);
 					continue;
 				}
 				Brd.getPiece(i, j)->draw(screen, &dest);
