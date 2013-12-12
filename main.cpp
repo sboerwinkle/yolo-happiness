@@ -60,7 +60,7 @@ int main(int argc, char** argv){
 			}
 		}
 
-		SDL_FillRect(screen, &wholeScreen, 0xFF000000);
+		SDL_FillRect(screen, &wholeScreen, phase < 2 ? 0xFFFFFFFF : 0xFF000000);
 		int j, i = 0;
 		dest.w = dest.h = 40;
 		dest.x = 50;
