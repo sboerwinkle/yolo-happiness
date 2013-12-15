@@ -94,8 +94,6 @@ class Knight: public Piece{
 			type = KNIGHT;
 		}
 		int checkMove(int x, int y);
-
-	
 };
 
 class Bishop: public Piece{
@@ -111,6 +109,7 @@ class Bishop: public Piece{
 			type = BISHOP;
 		}
 	
+		int checkMove(int x, int y);
 };
 
 class King: public Piece{
@@ -126,6 +125,7 @@ class King: public Piece{
 			type = KING;
 		}
 
+		int checkMove(int x, int y);
 };
 
 class Queen: public Piece{

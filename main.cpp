@@ -74,7 +74,9 @@ int main(int argc, char** argv){
 			int y = (e.button.y-90)/40;
 			if(x<0 || x>7 || y<0 || y>7) continue;
 			if(phase%2){
-				if(Brd.getPiece(selectedX,selectedY)->checkMove(x, y)){
+				if(x == selectedX && y == selectedY)
+					phase--;
+				else if(Brd.getPiece(selectedX,selectedY)->checkMove(x, y)){
 					phase++;
 					if(phase == 4) phase = 0;
 				}

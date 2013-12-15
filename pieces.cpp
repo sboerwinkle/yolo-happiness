@@ -102,3 +102,29 @@ int Pawn::checkMove(int x, int y){
 	}
 	return 666; // Error code of the beast
 }
+
+int Bishop::checkMove(int x, int y){
+	if(Brd.enemy(x, y, colour) == -1) return 0;
+	int dx = x-pos.x;
+	int dy = y-pos.y;
+	int dist = abs(dx);
+	if(dist != abs(dy)) return 0;
+	dx /= dist;
+	dy /= dist;
+	int tmpx = pos.x+dx;
+	int tmpy = pos.y+dy;
+	while(dist > 1){
+		if(Brd.enemy(tmpx, tmpy, colour)) return 0;
+		tmpx += dx;
+		tmpy += dy;
+		dist--;
+	}
+	move(x, y);
+	return 1;
+}
+
+int King::checkMove(int x, int y){
+	if(abs(x-pos.x) > 1 || abs(y-pos.y) > 1 || Brd.enemy(x, y, colour) == -1) return 0;
+	move(x, y);
+	return 1;
+}
