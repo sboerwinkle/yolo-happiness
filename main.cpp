@@ -6,6 +6,7 @@
 using namespace std;
 
 Board Brd;
+bool victory = false;
 
 int phase = 0; //White choose piece, white move, black choose piece, black move.
 int selectedX, selectedY;
@@ -35,6 +36,21 @@ void loadImg(SDL_Surface** dest, const char* name){
 	SDL_FreeSurface(tmp);
 	SDL_SetAlpha(dest[0], SDL_SRCALPHA, 255);
 	SDL_SetAlpha(dest[1], SDL_SRCALPHA, 255);
+}
+
+void dispVictoryImg(SDL_Surface* screen){
+	SDL_Surface* raw = SDL_LoadBMP("victory.bmp");
+	SDL_Surface* src = SDL_DisplayFormat(raw);
+	SDL_FreeSurface(raw);
+	int i = 0, j;
+	for(; i < 500; i++){
+		for(j=0; j < 82; j++){
+			if(!((Uint8*)src->pixels)[j*src->pitch+i*src->format->BytesPerPixel]){
+				Uint32* pix = ((Uint32*)screen->pixels) + (j+209)*screen->w + i;
+				*pix = 0x100FFFFFF-*pix;
+			}
+		}
+	}
 }
 
 int main(int argc, char** argv){
@@ -69,6 +85,7 @@ int main(int argc, char** argv){
 			SDL_Quit();
 			return 0;
 		}
+		if(victory) continue;
 		if(e.type == SDL_MOUSEBUTTONDOWN){
 			int x = (e.button.x-90)/40;
 			int y = (e.button.y-90)/40;
@@ -97,7 +114,7 @@ int main(int argc, char** argv){
 			dest.y = 50;
 			for(j = 0; j < 8; j++){
 				dest.y += 40;
-				SDL_FillRect(screen, &dest, (i+j)%2?0xFF303030:0xFFCFCFCF);
+				SDL_FillRect(screen, &dest, (i+j)%2?0xFF606060:0xFF9F9F9F);
 				if(Brd.getPiece(i, j) == NULL){
 					continue;
 				}
@@ -121,6 +138,7 @@ int main(int argc, char** argv){
 			dest.h = 2;
 			SDL_FillRect(screen, &dest, 0xFF0000FF);
 		}
+		if(victory) dispVictoryImg(screen);
 		SDL_Flip(screen);
 	}
 }

@@ -45,8 +45,11 @@ Board::Board(){
 	array[7][7] = new Rook(7, 7, WHITE);
 }
 
+extern bool victory;
+
 void Board::move(int x1, int y1, int x2, int y2){
 	if(array[x2][y2]){
+		if(array[x2][y2]->getType() == KING) victory = true;
 		delete array[x2][y2];
 	}
 	array[x2][y2] = array[x1][y1];
