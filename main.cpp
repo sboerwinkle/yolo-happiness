@@ -72,13 +72,14 @@ int main(int argc, char** argv){
 		if(e.type == SDL_MOUSEBUTTONDOWN){
 			int x = (e.button.x-90)/40;
 			int y = (e.button.y-90)/40;
+			if(x<0 || x>7 || y<0 || y>7) continue;
 			if(phase%2){
-				if(Brd.getPiece(x,y)->getType() != BLANK && (Brd.getPiece(x,y)->getColour() == WHITE) == (phase == 1)) continue; //Moving into a friendly unit's space
-				Brd.move(selectedX, selectedY, x, y);
-				phase++;
-				if(phase == 4) phase = 0;
+				if(Brd.getPiece(selectedX,selectedY)->checkMove(x, y)){
+					phase++;
+					if(phase == 4) phase = 0;
+				}
 			}else{
-				if(Brd.getPiece(x,y)->getType() == BLANK || (Brd.getPiece(x,y)->getColour() == WHITE) != (phase == 0)) continue; //Empty space or Wrong color
+				if(Brd.getPiece(x,y) == NULL || (Brd.getPiece(x,y)->getColour() == WHITE) != (phase == 0)) continue; //Empty space or Wrong color
 				selectedX = x;
 				selectedY = y;
 				phase++;
@@ -95,7 +96,7 @@ int main(int argc, char** argv){
 			for(j = 0; j < 8; j++){
 				dest.y += 40;
 				SDL_FillRect(screen, &dest, (i+j)%2?0xFF303030:0xFFCFCFCF);
-				if(Brd.getPiece(i, j)->getType() == BLANK){
+				if(Brd.getPiece(i, j) == NULL){
 					continue;
 				}
 				Brd.getPiece(i, j)->draw(screen, &dest);

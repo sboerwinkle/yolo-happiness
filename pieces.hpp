@@ -1,7 +1,9 @@
 #include <SDL/SDL.h>
+#include <iostream>
+
+using namespace std;
 
 enum piece_t{
-	BLANK,
 	PAWN,
 	ROOK,
 	KNIGHT,
@@ -41,10 +43,11 @@ class Piece{
 		piece_t getType();
 		piece_c getColour();
 		void move(int x, int y);	
+		virtual int checkMove(int x, int y); //virtual means match fnct. call w/ definition at runtime. Allows for proper overriding.
+		virtual ~Piece() {};
 };
 
 extern Piece newPiece(int x, int y, piece_t newType, piece_c newColour);
-
 
 
 class Pawn: public Piece{
@@ -59,7 +62,7 @@ class Pawn: public Piece{
 			myImg = pawnImg;
 			type = PAWN;
 		}
-		
+		virtual int checkMove(int x, int y);
 };
 
 class Rook: public Piece{
@@ -90,7 +93,7 @@ class Knight: public Piece{
 			myImg = knightImg;
 			type = KNIGHT;
 		}
-		int checkMove(int x, int y, piece_c c);
+		int checkMove(int x, int y);
 
 	
 };

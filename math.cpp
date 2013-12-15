@@ -1,6 +1,6 @@
 #include <math.h>
 
 float dist(int x, int y){
-	return pow(pow(x,2)+pow(y,2),0.5);
+	return pow(x*x+y*y,0.5);
 
 }
