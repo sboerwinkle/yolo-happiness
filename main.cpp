@@ -57,12 +57,12 @@ int main(int argc, char** argv){
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Surface* screen = SDL_SetVideoMode(500, 500, 32, SDL_SWSURFACE);
-	loadImg(pawnImg, "pawn.bmp");
-	loadImg(bishopImg, "bishop.bmp");
-	loadImg(kingImg, "king.bmp");
-	loadImg(rookImg, "rook.bmp");
-	loadImg(queenImg, "queen.bmp");
-	loadImg(knightImg, "knight.bmp");
+	loadImg(pawnImg, "data/pawn.bmp");
+	loadImg(bishopImg, "data/bishop.bmp");
+	loadImg(kingImg, "data/king.bmp");
+	loadImg(rookImg, "data/rook.bmp");
+	loadImg(queenImg, "data/queen.bmp");
+	loadImg(knightImg, "data/knight.bmp");
 	Brd = Board(); // Delay until after the image pointers are established
 	SDL_Event e;
 	SDL_Rect dest;

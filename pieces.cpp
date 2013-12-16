@@ -128,3 +128,46 @@ int King::checkMove(int x, int y){
 	move(x, y);
 	return 1;
 }
+
+int Queen::checkMove(int x, int y){
+	if(abs(x-pos.x) == abs(y - pos.y)){
+	}else if(x == pos.x || y == pos.y){
+	}else{
+		return 0;
+	}
+
+	if(Brd.enemy(x,y,colour)==-1) return 0;
+
+	int dx = (int)((x-pos.x)/(abs(x-pos.x)+0.0001)); //set dxdy to one, negative one, or zero.
+	int dy = (int)((y-pos.y)/(abs(y-pos.y)+0.0001));
+
+	int tmpx,tmpy;
+	for(tmpx = pos.x; tmpx != x; tmpx += dx){
+		for(tmpy = pos.y; tmpy != y; tmpy += dy){
+			if((Brd.enemy(tmpx,tmpy,colour)==-1)||(Brd.enemy(tmpx,tmpy,colour)==1)) return 0;
+		}
+	}
+	move(x,y);
+	return 1;
+
+}
+
+int Rook::checkMove(int x, int y){
+	if(!(x==pos.x || y == pos.y)){
+		return 0;
+	}
+	if(Brd.enemy(x,y,colour)==-1) return 0;
+
+	int dx = (int)((x-pos.x)/(abs(x-pos.x)+0.0001)); //Always sets dx/dy to one, negative one, or zero.
+	int dy = (int)((y-pos.y)/(abs(y-pos.y)+0.0001));
+
+	int tmpx,tmpy;
+	for(tmpx = pos.x; tmpx != x; tmpx += dx){
+		for(tmpy = pos.y; tmpy != y; tmpy += dy){
+			if((Brd.enemy(tmpx,tmpy,colour)==-1)||(Brd.enemy(tmpx,tmpy,colour)==1)) return 0;
+		}
+	}
+	move(x,y);
+	return 1;
+
+}
