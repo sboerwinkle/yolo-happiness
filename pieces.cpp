@@ -128,7 +128,7 @@ int King::checkMove(int x, int y){
 	move(x, y);
 	return 1;
 }
-
+/////////////////////////////////////////////////////////Trey, Replace the queen and rook checks with your code.
 int Queen::checkMove(int x, int y){
 	if(abs(x-pos.x) == abs(y - pos.y)){
 	}else if(x == pos.x || y == pos.y){
