@@ -5,10 +5,10 @@ LFLAGS = -lSDL -lm
 .PHONY: clean windows
 
 game: main.o math.o board.o pieces.o
-	$(CC) $(CFLAGS) board.o pieces.o math.o main.o -o game $(WFLAGS) $(LFLAGS) 
+	$(CC) $(CFLAGS) board.o pieces.o math.o main.o -o game $(LFLAGS) 
 
 windows:
-	$(MAKE) WFLAGS="-lmingw32 -lSDLmain -lSDL -mwindows -o game.exe"
+	$(MAKE) LFLAGS="-lmingw32 -lSDLmain -lSDL.dll -static -mwindows -lm -o game.exe"
 
 main.o: main.cpp board.hpp pieces.hpp
 	$(CC) $(CFLAGS) -c main.cpp

@@ -1,0 +1,7 @@
+Files required to work on a test windows machine:
+
+game.exe (obviously)
+all the .bmp files
+SDL.dll
+
+This last should be findable in C:\MinGW\bin on either of the windows development machines.
