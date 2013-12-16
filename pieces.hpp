@@ -77,7 +77,8 @@ class Rook: public Piece{
 			myImg = rookImg;
 			type = ROOK;
 		}
-
+		virtual int checkMove(int x, int y);
+		
 };
 
 

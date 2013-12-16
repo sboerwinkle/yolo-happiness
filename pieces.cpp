@@ -128,3 +128,64 @@ int King::checkMove(int x, int y){
 	move(x, y);
 	return 1;
 }
+int Rook::checkMove(int x, int y)
+{
+	int orix, oriy;
+	orix = pos.x;
+	oriy = pos.y;
+
+	if (((orix != x) && (oriy == y)) || ((oriy != y) && (orix == x)))
+	;
+	else
+		return 0;
+
+
+	if ((orix > x))
+	{
+		for (orix--; orix > x; orix--)
+		{
+			if (Brd.enemy(orix,y,colour) != 0)
+				return 0;
+		}
+	}
+
+	else 
+		if (x > orix)
+	{
+		for (orix++; orix < x; orix++)
+		{
+			if (Brd.enemy(orix,y,colour) != 0)
+				return 0;
+		}
+	}
+
+		else
+			if (oriy > y)
+			{
+				for (oriy--; oriy > y; oriy--)
+				{
+					if (Brd.enemy(x,oriy,colour) != 0)
+					return 0;
+				}
+			}
+
+			else
+				if (y > oriy)
+				{
+					for (oriy++; oriy < y; oriy++)
+					{
+						if (Brd.enemy(x,oriy,colour) != 0)
+						return 0;
+					}
+				}
+
+		
+		if (Brd.enemy(x,y,colour) == -1)
+		{
+			return 0;
+		}
+		
+	move (x,y);
+	
+	return 1;
+}
