@@ -2,10 +2,13 @@ CC = g++
 CFLAGS = -O0 -g -Wall 
 LFLAGS = -lSDL -lm
 
-.PHONY: clean
+.PHONY: clean windows
 
 game: main.o math.o board.o pieces.o
-	$(CC) $(CFLAGS) $(LFLAGS) board.o pieces.o math.o main.o -o game
+	$(CC) $(CFLAGS) board.o pieces.o math.o main.o -o game $(LFLAGS) 
+
+windows:
+	$(MAKE) LFLAGS="-lmingw32 -lSDLmain -lSDL.dll -static -mwindows -lm -o game.exe"
 
 main.o: main.cpp board.hpp pieces.hpp
 	$(CC) $(CFLAGS) -c main.cpp
