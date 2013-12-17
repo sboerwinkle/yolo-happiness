@@ -276,12 +276,13 @@ int Queen::checkMove(int x, int y)
 			else if(tempy < 0)
 				tempy = 1;
 
-			for(orix += tempx; orix <= x; orix += tempx)
+			for(orix += tempx; orix != x+tempx; orix += tempx)
 			{
 			change++;
 				for(oriy += tempy; change == counter ; oriy = oriy)
 				{
 				counter++;
+					cout << orix << " " << x << endl;
 					if((Brd.enemy(orix,oriy,colour) == -1 || (Brd.enemy(orix,oriy,colour) == 1 && (orix != x))))
 						return 0;
 				}
