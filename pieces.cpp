@@ -128,45 +128,163 @@ int King::checkMove(int x, int y){
 	move(x, y);
 	return 1;
 }
-/////////////////////////////////////////////////////////Trey, Replace the queen and rook checks with your code.
-int Queen::checkMove(int x, int y){
-	if(abs(x-pos.x) == abs(y - pos.y)){
-	}else if(x == pos.x || y == pos.y){
-	}else{
+int Rook::checkMove(int x, int y)
+{
+	int orix, oriy;
+	orix = pos.x;
+	oriy = pos.y;
+
+	if (((orix != x) && (oriy == y)) || ((oriy != y) && (orix == x)))
+	;
+	else
 		return 0;
-	}
 
-	if(Brd.enemy(x,y,colour)==-1) return 0;
 
-	int dx = (int)((x-pos.x)/(abs(x-pos.x)+0.0001)); //set dxdy to one, negative one, or zero.
-	int dy = (int)((y-pos.y)/(abs(y-pos.y)+0.0001));
-
-	int tmpx,tmpy;
-	for(tmpx = pos.x; tmpx != x; tmpx += dx){
-		for(tmpy = pos.y; tmpy != y; tmpy += dy){
-			if((Brd.enemy(tmpx,tmpy,colour)==-1)||(Brd.enemy(tmpx,tmpy,colour)==1)) return 0;
+	if ((orix > x))
+	{
+		for (orix--; orix > x; orix--)
+		{
+			if (Brd.enemy(orix,y,colour) != 0)
+				return 0;
 		}
 	}
-	move(x,y);
-	return 1;
 
-}
-
-int Rook::checkMove(int x, int y){
-	if(!(x==pos.x || y == pos.y)){
-		return 0;
-	}
-	if(Brd.enemy(x,y,colour)==-1) return 0;
-
-	int dx = (int)((x-pos.x)/(abs(x-pos.x)+0.0001)); //Always sets dx/dy to one, negative one, or zero.
-	int dy = (int)((y-pos.y)/(abs(y-pos.y)+0.0001));
-
-	int tmpx,tmpy;
-	for(tmpx = pos.x; tmpx != x; tmpx += dx){
-		for(tmpy = pos.y; tmpy != y; tmpy += dy){
-			if((Brd.enemy(tmpx,tmpy,colour)==-1)||(Brd.enemy(tmpx,tmpy,colour)==1)) return 0;
+	else 
+		if (x > orix)
+	{
+		for (orix++; orix < x; orix++)
+		{
+			if (Brd.enemy(orix,y,colour) != 0)
+				return 0;
 		}
 	}
-	move(x,y);
+
+		else
+			if (oriy > y)
+			{
+				for (oriy--; oriy > y; oriy--)
+				{
+					if (Brd.enemy(x,oriy,colour) != 0)
+					return 0;
+				}
+			}
+
+			else
+				if (y > oriy)
+				{
+					for (oriy++; oriy < y; oriy++)
+					{
+						if (Brd.enemy(x,oriy,colour) != 0)
+						return 0;
+					}
+				}
+
+		
+		if (Brd.enemy(x,y,colour) == -1)
+		{
+			return 0;
+		}
+		
+	move (x,y);
 	return 1;
 }
+
+int Queen::checkMove(int x, int y)
+{
+
+	int orix = pos.x;
+	int oriy = pos.y;
+
+	if (((orix != x) && (oriy == y)) || ((oriy != y) && (orix == x)))
+	{
+
+	if ((orix > x))
+	{
+		for (orix--; orix > x; orix--)
+		{
+			if (Brd.enemy(orix,y,colour) != 0)
+				return 0;
+		}
+	}
+
+	else 
+		if (x > orix)
+	{
+		for (orix++; orix < x; orix++)
+		{
+			if (Brd.enemy(orix,y,colour) != 0)
+				return 0;
+		}
+	}
+
+		else
+			if (oriy > y)
+			{
+				for (oriy--; oriy > y; oriy--)
+				{
+					if (Brd.enemy(x,oriy,colour) != 0)
+					return 0;
+				}
+			}
+
+			else
+				if (y > oriy)
+				{
+					for (oriy++; oriy < y; oriy++)
+					{
+						if (Brd.enemy(x,oriy,colour) != 0)
+						return 0;
+					}
+				}
+
+		
+		if (Brd.enemy(x,y,colour) == -1)
+		{
+			return 0;
+		}
+		
+	move (x,y);
+	return 1;
+	}
+
+	else
+	{
+		if (abs(orix - x) != abs (oriy - y))
+			return 0;
+		else
+		{
+			int change, counter;
+			change = 0;
+			counter = 1;
+			int tempx = orix - x;
+			int tempy = oriy - y;
+
+			if(tempx > 0)
+				tempx = -1;			
+			else if(tempx < 0)
+				tempx = 1;
+				
+			if(tempy > 0)
+				tempy = -1;
+			else if(tempy < 0)
+				tempy = 1;
+
+			for(orix += tempx; orix != x; orix += tempx)
+			{
+			change++;
+				for(oriy += tempy; change == counter ; oriy = oriy)
+				{
+				counter++;
+					if(Brd.enemy(orix,oriy,colour) == -1)
+						return 0;
+				}
+			}
+
+			move(x,y);
+			return 1;
+		}
+	}
+}
+
+
+

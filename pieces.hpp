@@ -78,6 +78,7 @@ class Rook: public Piece{
 			type = ROOK;
 		}
 		virtual int checkMove(int x, int y);
+		
 };
 
 
@@ -93,7 +94,7 @@ class Knight: public Piece{
 			myImg = knightImg;
 			type = KNIGHT;
 		}
-		virtual int checkMove(int x, int y);
+		int checkMove(int x, int y);
 };
 
 class Bishop: public Piece{
@@ -109,7 +110,7 @@ class Bishop: public Piece{
 			type = BISHOP;
 		}
 	
-		virtual int checkMove(int x, int y);
+		int checkMove(int x, int y);
 };
 
 class King: public Piece{
@@ -125,7 +126,7 @@ class King: public Piece{
 			type = KING;
 		}
 
-		virtual int checkMove(int x, int y);
+		int checkMove(int x, int y);
 };
 
 class Queen: public Piece{
@@ -140,6 +141,7 @@ class Queen: public Piece{
 			myImg = queenImg;
 			type = QUEEN;
 		}
-		virtual int checkMove(int x, int y);
+
+		int checkMove(int x, int y);
 };
 
