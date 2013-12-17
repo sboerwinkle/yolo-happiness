@@ -40,7 +40,7 @@ void loadImg(SDL_Surface** dest, const char* name){
 }
 
 void dispVictoryImg(SDL_Surface* screen){
-	SDL_Surface* raw = SDL_LoadBMP("victory.bmp");
+	SDL_Surface* raw = SDL_LoadBMP("data/victory.bmp");
 	SDL_Surface* src = SDL_DisplayFormat(raw);
 	SDL_FreeSurface(raw);
 	int i = 0, j;
@@ -93,10 +93,15 @@ int main(int argc, char** argv){
 			int y = (e.button.y-90)/40;
 			if(x<0 || x>7 || y<0 || y>7) continue;
 			if(phase%2){
+				int result;
 				if(x == selectedX && y == selectedY)
 					phase--;
-				else if(Brd.getPiece(selectedX,selectedY)->checkMove(x, y)){
+				else if(result = Brd.getPiece(selectedX,selectedY)->checkMove(x, y)){
 
+					if(result == 2){
+						delete Brd.array[x][y];
+						Brd.array[x][y] = new Queen(x, y, phase==3?BLACK:WHITE);
+					}
 					phase++;
 					if(phase == 4){
 						phase = 0;

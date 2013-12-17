@@ -79,8 +79,12 @@ int Knight::checkMove(int x, int y){
 		return 0;
 	}	
 }
-
 int Pawn::checkMove(int x, int y){
+	int ret = checkMoveSub(x, y);
+	if(ret && pos.y == 7-7*colour) return 2;
+	return ret;
+}
+int Pawn::checkMoveSub(int x, int y){
 	int dir = colour*(-2)+1;
 	if(y!=pos.y+dir){
 		if(x!=pos.x || y!=pos.y+2*dir || y!=(7-dir)/2 || Brd.enemy(x,pos.y+dir,colour) || Brd.enemy(x,y,colour)) return 0;

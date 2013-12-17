@@ -65,6 +65,7 @@ class Pawn: public Piece{
 			type = PAWN;
 		}
 		virtual int checkMove(int x, int y);
+		int checkMoveSub(int x, int y);
 };
 
 class Rook: public Piece{
