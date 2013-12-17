@@ -10,6 +10,7 @@ bool victory = false;
 
 int phase = 0; //White choose piece, white move, black choose piece, black move.
 int selectedX, selectedY;
+pt enPassant[2];
 
 void loadImg(SDL_Surface** dest, const char* name){
 	SDL_Surface* old = SDL_LoadBMP(name);
@@ -70,6 +71,7 @@ int main(int argc, char** argv){
 	SDL_Rect wholeScreen;
 	wholeScreen.x = wholeScreen.y = 0;
 	wholeScreen.w = wholeScreen.h = 500;
+	enPassant[0].x = enPassant[1].x = -1;
 	while(true){
 		SDL_WaitEvent(&e);
 		if(e.type == SDL_QUIT){
@@ -94,8 +96,14 @@ int main(int argc, char** argv){
 				if(x == selectedX && y == selectedY)
 					phase--;
 				else if(Brd.getPiece(selectedX,selectedY)->checkMove(x, y)){
+
 					phase++;
-					if(phase == 4) phase = 0;
+					if(phase == 4){
+						phase = 0;
+						enPassant[WHITE].x = -1;
+					}else{
+						enPassant[BLACK].x = -1;
+					}
 				}
 			}else{
 				if(Brd.getPiece(x,y) == NULL || (Brd.getPiece(x,y)->getColour() == WHITE) != (phase == 0)) continue; //Empty space or Wrong color

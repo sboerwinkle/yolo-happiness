@@ -24,6 +24,8 @@ struct pt{
 
 };
 
+extern pt enPassant[2];
+
 extern SDL_Surface* pawnImg[2];
 extern SDL_Surface* rookImg[2];
 extern SDL_Surface* kingImg[2];

@@ -84,6 +84,8 @@ int Pawn::checkMove(int x, int y){
 	int dir = colour*(-2)+1;
 	if(y!=pos.y+dir){
 		if(x!=pos.x || y!=pos.y+2*dir || y!=(7-dir)/2 || Brd.enemy(x,pos.y+dir,colour) || Brd.enemy(x,y,colour)) return 0;
+		enPassant[colour].x = x;
+		enPassant[colour].y = pos.y+dir;
 		move(x, y);
 		return 1;
 	}
@@ -91,8 +93,13 @@ int Pawn::checkMove(int x, int y){
 		case -1: return 0;
 		case 0:
 			 if(x==pos.x){
-				 move(x, y);
-				 return 1;
+				move(x, y);
+				return 1;
+			 }else if(enPassant[1-colour].x == x && enPassant[1-colour].y == y && abs(x-pos.x)==1){
+				move(x, y);
+				delete Brd.array[x][y-dir];
+				Brd.array[x][y-dir] = NULL;
+				return 1;
 			 }else return 0;
 		case 1:
 			 if(abs(x-pos.x) == 1){
